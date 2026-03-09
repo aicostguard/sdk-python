@@ -22,6 +22,50 @@
 pip install ai-cost-guard-sdk
 ```
 
+---
+
+## Before You Start — Get Your Free API Key
+
+You cannot use this SDK without an API key. The key tells the server which project to save your cost data into. Getting one is free and takes less than 2 minutes.
+
+### Step 1 — Create a Free Account
+
+Go to **https://aicostguard.com** and click the **"Get Started"** button (top-right corner).
+
+Fill in:
+- Your name
+- Your email address
+- A password
+
+Click **"Sign Up"**. You land on your dashboard automatically.
+
+### Step 2 — Create a Project
+
+A project is a container for one app. One project = one API key = one set of cost data in your dashboard.
+
+1. You are now on the Dashboard: **https://aicostguard.com/dashboard**
+2. Click **"Projects"** in the left sidebar
+3. Click the **"New Project"** button (top-right of the page)
+4. Fill in:
+   - **Project Name** — e.g. `My Chatbot App`
+   - **Description** — e.g. `Tracks GPT-4o costs for my support bot`
+5. Click **"Create Project"**
+6. Your new project card appears on the Projects page
+
+### Step 3 — Copy Your API Key
+
+1. On your project card, click the **"API Keys"** button
+2. You will see a default API key that looks like:
+   ```
+   acg_live_abc123def456ghi789...
+   ```
+3. Click **"Copy"** to copy it to your clipboard
+4. Keep it safe — treat it like a password
+
+> 💡 **Tip:** Click **"Generate New Key"** at any time to get a fresh key.
+
+---
+
 ## Quick Start
 
 ```python

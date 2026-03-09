@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ai-cost-guard-sdk"
-version = "1.0.0"
+version = "1.0.1"
 description = "Python SDK for AI Cost Guard — track, analyze, and optimize your AI/LLM API costs"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.8"
 authors = [
-    {name = "AI Cost Guard", email = "sdk@aicostguard.com"}
+    {name = "crediblearena", email = "sdk@aicostguard.com"}
 ]
 keywords = [
     "ai", "llm", "cost", "cost-tracking", "cost-monitoring", "cost-optimization",
@@ -53,8 +53,8 @@ dev = [
 
 [project.urls]
 Homepage = "https://aicostguard.com"
-Documentation = "https://aicostguard.com/docs"
-Repository = "https://github.com/crediblearena/ai-cost-guard"
+Documentation = "https://docs.aicostguard.com/python-sdk"
+Repository = "https://github.com/aicostguard/python-sdk"
 
 [tool.setuptools.packages.find]
 where = ["."]

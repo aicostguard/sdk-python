@@ -13,11 +13,10 @@ class TrackEventParams:
     input_tokens: int = 0
     output_tokens: int = 0
     latency_ms: Optional[float] = None
-    cost: Optional[float] = None
     success: bool = True
     feature: Optional[str] = None
     user_id: Optional[str] = None
-    prompt_hash: Optional[str] = None
+    error_message: Optional[str] = None
     prompt_name: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = None
 

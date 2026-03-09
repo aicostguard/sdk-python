@@ -1,5 +1,7 @@
 """AI Cost Guard client implementation."""
 
+import asyncio
+import functools
 import json
 import logging
 import threading
@@ -99,11 +101,10 @@ class AICostGuard:
         input_tokens: int = 0,
         output_tokens: int = 0,
         latency_ms: Optional[float] = None,
-        cost: Optional[float] = None,
         success: bool = True,
         feature: Optional[str] = None,
         user_id: Optional[str] = None,
-        prompt_hash: Optional[str] = None,
+        error_message: Optional[str] = None,
         prompt_name: Optional[str] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> Optional[TrackResponse]:
@@ -115,11 +116,10 @@ class AICostGuard:
             input_tokens: Number of input/prompt tokens
             output_tokens: Number of output/completion tokens
             latency_ms: Request latency in milliseconds
-            cost: Explicit cost override (auto-calculated if omitted)
             success: Whether the API call succeeded
             feature: Feature/module tag
             user_id: End-user identifier
-            prompt_hash: Hash of the prompt for grouping
+            error_message: Error message if the API call failed
             prompt_name: Human-readable prompt label
             metadata: Arbitrary key-value metadata
 
@@ -143,14 +143,12 @@ class AICostGuard:
 
         if latency_ms is not None:
             event["latencyMs"] = latency_ms
-        if cost is not None:
-            event["cost"] = cost
         if feature or self._config.default_feature:
             event["feature"] = feature or self._config.default_feature
         if user_id:
             event["userId"] = user_id
-        if prompt_hash:
-            event["promptHash"] = prompt_hash
+        if error_message:
+            event["errorMessage"] = error_message
         if prompt_name:
             event["promptName"] = prompt_name
         if metadata:
@@ -196,6 +194,12 @@ class AICostGuard:
         self.flush()
         self._session.close()
         self._log("SDK shut down")
+
+    def __enter__(self) -> "AICostGuard":
+        return self
+
+    def __exit__(self, *_: Any) -> None:
+        self.shutdown()
 
     # ------------------------------------------------------------------ #
     # Provider helpers
@@ -435,3 +439,67 @@ class AICostGuard:
         if self._config.debug:
             logger.debug(f"[AI Cost Guard] {message}")
             print(f"[AI Cost Guard] {message}")
+
+
+class AsyncAICostGuard(AICostGuard):
+    """Async-compatible AICostGuard wrapper.
+
+    All public methods are coroutines. Blocking HTTP I/O runs in a
+    thread-pool executor so the asyncio event loop is never blocked.
+
+    Example::
+
+        async def main():
+            async with AsyncAICostGuard(api_key="acg_live_xxx") as guard:
+                await guard.track(provider="openai", model="gpt-4o",
+                                  input_tokens=500, output_tokens=150)
+    """
+
+    async def track(  # type: ignore[override]
+        self,
+        provider: str,
+        model: str,
+        input_tokens: int = 0,
+        output_tokens: int = 0,
+        latency_ms: Optional[float] = None,
+        success: bool = True,
+        feature: Optional[str] = None,
+        user_id: Optional[str] = None,
+        error_message: Optional[str] = None,
+        prompt_name: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> Optional[TrackResponse]:
+        """Async version of track(). Returns a coroutine."""
+        loop = asyncio.get_event_loop()
+        fn = functools.partial(
+            AICostGuard.track,
+            self,
+            provider=provider,
+            model=model,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            latency_ms=latency_ms,
+            success=success,
+            feature=feature,
+            user_id=user_id,
+            error_message=error_message,
+            prompt_name=prompt_name,
+            metadata=metadata,
+        )
+        return await loop.run_in_executor(None, fn)
+
+    async def flush(self) -> None:  # type: ignore[override]
+        """Async flush — sends all buffered events."""
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(None, AICostGuard.flush, self)
+
+    async def shutdown(self) -> None:  # type: ignore[override]
+        """Async shutdown — flushes and closes the session."""
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(None, AICostGuard.shutdown, self)
+
+    async def __aenter__(self) -> "AsyncAICostGuard":
+        return self
+
+    async def __aexit__(self, *_: Any) -> None:
+        await self.shutdown()
