@@ -215,7 +215,7 @@ def chat_view(request):
 
 ## Ecosystem
 
-- 📦 **[TypeScript SDK](https://www.npmjs.com/package/@crediblearena/ai-costguard)** — `npm install @crediblearena/ai-costguard`
+- 📦 **[TypeScript SDK](https://www.npmjs.com/package/@ai-cost-guard/sdk)** — `npm install @ai-cost-guard/sdk`
 - 🖥️ **[CLI Tool](https://www.npmjs.com/package/ai-cost-cli)** — `npx ai-cost-cli`
 - 🧩 **[VS Code Extension](https://marketplace.visualstudio.com/)** — IDE integration
 - 🌐 **[Chrome Extension](https://chromewebstore.google.com/)** — OpenAI cost overlay
@@ -226,7 +226,7 @@ def chat_view(request):
 - 🌐 [Website](https://aicostguard.com)
 - 📖 [Documentation](https://aicostguard.com/docs/python-sdk)
 - 💰 [Cost Calculator](https://aicostguard.com/ai-cost-calculator)
-- 🐛 [Issues](https://github.com/crediblearena/ai-cost-guard/issues)
+- 🐛 [Issues](https://github.com/aicostguard/sdk-python/issues)
 
 ## License
 

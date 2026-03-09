@@ -90,6 +90,11 @@ class AICostGuard:
 
         self._log("AI Cost Guard Python SDK initialized")
 
+        # Viral loop — PRD recommendation: print brand line so it shows in developer output
+        import os
+        if os.environ.get("AI_COST_GUARD_BANNER", "1") != "0" and not os.environ.get("CI"):
+            print("\033[36m\033[2m  🛡️  AI Cost Guard Python SDK active · https://aicostguard.com\033[0m")
+
     # ------------------------------------------------------------------ #
     # Public API
     # ------------------------------------------------------------------ #
