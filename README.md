@@ -7,6 +7,13 @@
 [![Downloads](https://img.shields.io/pypi/dm/ai-cost-guard-sdk)](https://pypi.org/project/ai-cost-guard-sdk/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<p align="center">
+  🌐 <a href="https://aicostguard.com"><strong>AI Cost Guard Dashboard</strong></a> &nbsp;·&nbsp;
+  ⭐ <strong>Star this repo if you find it useful!</strong>
+</p>
+
+---
+
 ## Why AI Cost Guard?
 
 | Problem | Solution |
@@ -228,6 +235,27 @@ def chat_view(request):
 - 💰 [Cost Calculator](https://aicostguard.com/ai-cost-calculator)
 - 🐛 [Issues](https://github.com/aicostguard/sdk-python/issues)
 
+## 📸 Dashboard Preview
+
+<p align="center">
+  <img src="https://aicostguard.com/dashboard/1.png" alt="AI Cost Guard — Main Dashboard" width="48%" />
+  &nbsp;
+  <img src="https://aicostguard.com/dashboard/4.png" alt="AI Cost Guard — Cost Analytics" width="48%" />
+</p>
+<p align="center">
+  <img src="https://aicostguard.com/dashboard/5.png" alt="AI Cost Guard — AI Intelligence" width="48%" />
+  &nbsp;
+  <img src="https://aicostguard.com/dashboard/6.png" alt="AI Cost Guard — Budget Alerts" width="48%" />
+</p>
+
+<p align="center">
+  <a href="https://aicostguard.com"><strong>🌐 Try the live dashboard →</strong></a>
+</p>
+
+---
+
 ## License
 
 MIT
+
+<p align="center">⭐ If this project helps you, <strong>give it a star</strong> — it helps others discover it too!</p>
